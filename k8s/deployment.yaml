@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+  labels:
+    app: ostoy
+  name: ostoy-microservice
+  namespace: ostoy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ostoy
+      deployment: ostoy-microservice
+  template:
+    metadata:
+      labels:
+        app: ostoy
+        deployment: ostoy-microservice
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/ostoy/ostoy-microservice:latest
+        imagePullPolicy: IfNotPresent
+        name: ostoy-microservice
+        ports:
+        - containerPort: 8080
+          protocol: TCP
